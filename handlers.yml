@@ -1,5 +1,7 @@
 - hosts: webservers
-
+  vars:
+    root_dir: /etc/nginx
+    nginx_port: "8082"
   tasks:
     - name: install nginx 
       ansible.builtin.apt:
@@ -15,9 +17,9 @@
       become: yes 
     
     - name: copy config file 
-      ansible.builtin.copy:
-        src: /mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/files/nginx.conf
-        dest: /etc/nginx/nginx.conf
+      ansible.builtin.template:
+        src: /mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/files/nginx.conf.j2
+        dest: "{{root_dir}}/nginx.conf"
       notify: 
         - restart nginx
       become: yes 
