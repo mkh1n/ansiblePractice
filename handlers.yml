@@ -11,8 +11,8 @@
       become: yes 
 
     - name: copy html file 
-      ansible.builtin.copy:
-        src: /mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/files/index.html
+      ansible.builtin.template:
+        src: /mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/files/index.html.j2
         dest: /usr/share/nginx/html/index.html 
       become: yes 
     
