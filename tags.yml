@@ -1,0 +1,38 @@
+- hosts: webservers
+
+  tasks:
+    - name: update apt ceche 
+      ansible.builtin.apt:
+        update_cache: yes
+      become: yes 
+      tags: update
+
+    - name: install nodejs 
+      ansible.builtin.apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+      become: yes 
+
+    - name: create user Jhon
+      ansible.builtin.user:
+        name: jhon
+        shell: /bin/bash
+        home: /home/jhon
+        state: present
+      tags: users
+      become: yes 
+
+
+    - name: create user Ivan
+      ansible.builtin.user:
+        name: ivan
+        shell: /bin/bash
+        home: /home/ivan
+        state: present
+      tags: users
+      become: yes 
+
+
+
+
