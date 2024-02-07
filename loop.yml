@@ -1,0 +1,30 @@
+- hosts: webservers
+  gather_facts: no
+  vars:
+    users: 
+      - jaime
+      - sansa
+      - robert
+  tasks:
+    - name: add test users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{users|flatten(levels=1)}}"
+      become: yes 
+
+    - name: create config files for users
+      ansible.builtin.template:
+        src: /mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/files/userconfig.j2
+        dest: "/home/{{item}}/.gitconfig"
+      loop: "{{users|flatten(levels=1)}}"
+      become: yes
+
+    - name: make ssh keys for users
+      authorized_key:
+        user: "{{item}}"
+        state: present
+        key: "{{ lookup('file', '/mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/ssh/id_rsa.pub') }}"
+      loop: "{{users|flatten(levels=1)}}"
+      become: yes
+
