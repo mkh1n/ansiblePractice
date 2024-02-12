@@ -19,9 +19,9 @@
         dest: "/home/{{item}}/.gitconfig"
       loop: "{{users|flatten(levels=1)}}"
       become: yes
-
+      
     - name: make ssh keys for users
-      authorized_key:
+      ansible.posix.authorized_key:
         user: "{{item}}"
         state: present
         key: "{{ lookup('file', '/mnt/c/Users/romam/OneDrive/Документы/Projects/ansiblePractice/ssh/id_rsa.pub') }}"
