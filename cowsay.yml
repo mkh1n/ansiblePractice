@@ -1,0 +1,9 @@
+- hosts: webservers
+  vars:
+  tasks:
+    - name: install cowsay
+      ansible.builtin.apt:
+        name: cowsay
+        state: present
+        update_cache: yes
+      become: yes

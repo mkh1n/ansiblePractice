@@ -3,6 +3,9 @@
     root_dir: /etc/nginx
     nginx_port: "8082"
   tasks:
+    - ansible.builtin.shell: cowsay "This is server server_name!"
+      register: cowsay_result
+
     - name: install nginx 
       ansible.builtin.apt:
         name: nginx
